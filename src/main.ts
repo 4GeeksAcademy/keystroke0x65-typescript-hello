@@ -12,6 +12,7 @@ const seatingMatrix: number[][] = Array.from({ length: ROWS }, () =>
 const app = document.querySelector<HTMLElement>("#app");
 let statusMessage = "Choose available seats, then reserve your selection.";
 
+// Counts occupied, available, and selected seats and returns the totals in that order.
 function getSeatCounts(): [number, number, number] {
   const occupied = seatingMatrix.flat().filter((seat) => seat === SEAT_TAKEN).length;
   const selected = seatingMatrix.flat().filter((seat) => seat === SEAT_SELECTED).length;
@@ -64,6 +65,7 @@ function logRoomStatus(actionMessage: string): void {
   }
 }
 
+// Builds the seat map and updates the page with current seat counts and status.
 function render(): void {
   if (!app) return;
 
@@ -148,6 +150,7 @@ function render(): void {
     </div>`;
 }
 
+// Handles seat selection and reservation button clicks, updating the matrix and display.
 app?.addEventListener("click", (event: MouseEvent) => {
   const target = event.target;
   if (!(target instanceof HTMLButtonElement)) return;
