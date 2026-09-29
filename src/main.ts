@@ -34,19 +34,23 @@ function findAdjacentAvailableSeats(): [number, number, number] | null {
   return null;
 }
 
+// Prints the seating matrix with numbered rows and columns.
+function displaySeatingMatrix(): void {
+  console.info("Seat map (X = occupied, L = available, S = selected):");
+  console.info(`     ${Array.from({ length: COLUMNS }, (_, index) => String(index + 1).padStart(1, " ")).join("  ")}`);
+  seatingMatrix.forEach((row, rowIndex) => {
+    const seats = row
+      .map((seat) => seat === SEAT_TAKEN ? "X" : seat === SEAT_SELECTED ? "S" : "L")
+      .join("  ");
+    console.info(`${String(rowIndex + 1).padStart(2, " ")}   ${seats}`);
+  });
+}
+
 // Logs the action, current seat map, counts, and first adjacent available pair for staff.
 function logRoomStatus(actionMessage: string): void {
   const [occupied, available, selected] = getSeatCounts();
   console.info(`Cinema seating update: ${actionMessage}`);
-  console.info("Seat map (X = reserved, S = selected, | = available):");
-  console.info(`      ${Array.from({ length: COLUMNS }, (_, index) => String(index + 1).padStart(2, " ")).join("  ")}`);
-  seatingMatrix.forEach((row, rowIndex) => {
-    const rowLabel = String.fromCharCode(65 + rowIndex);
-    const seats = row
-      .map((seat) => seat === SEAT_TAKEN ? "X" : seat === SEAT_SELECTED ? "S" : "|")
-      .join("  ");
-    console.info(`Row ${rowLabel}: ${seats}`);
-  });
+  displaySeatingMatrix();
   console.info(`Seat totals: ${occupied} reserved, ${selected} selected, ${available} available.`);
 
   const adjacentSeats = findAdjacentAvailableSeats();
