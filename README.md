@@ -50,8 +50,6 @@ All seating data lives in a single two-dimensional array of numbers, `seatingMat
 
 The seat map, the 3D hall and the console all read from and write to this one array, so they always agree.
 
-> [!IMPORTANT]
-> **Project rule:** no objects or classes are used for the seating data. Only the 2D array is used, and JSON is the format for any extra data.
 
 ## 🛠 Tech stack
 
